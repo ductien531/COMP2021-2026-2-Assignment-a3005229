@@ -12,6 +12,7 @@ public sealed class RecipeManager : IRecipeManager
 {
     // TODO Part A: add your private collection fields here.
     private Dictionary<int, Recipe> _recipes = new Dictionary<int, Recipe>();
+    private LinkedList<int> _cookingPlan = new LinkedList<int>();
     public RecipeManager(IEnumerable<Recipe> recipes)
     {
         // TODO Part A: validate recipes and build Dictionary<int, Recipe>.
@@ -47,7 +48,7 @@ public sealed class RecipeManager : IRecipeManager
 
     public int RecipeCount => _recipes.Count;
     public int ShoppingItemCount => 0;
-    public int CookingPlanCount => 0;
+    public int CookingPlanCount => _cookingPlan.Count;
     public int PendingInstructionCount => 0;
     public int RemovedRecipeCount => 0;
 
@@ -79,11 +80,19 @@ public sealed class RecipeManager : IRecipeManager
             return null;
         }
     }
-        
     
-
-    public bool RemoveRecipe(int recipeId) =>
-        throw new NotImplementedException("Part A: implement RemoveRecipe.");
+    public bool RemoveRecipe(int recipeId)
+    {
+        if (_cookingPlan.Contains(recipeId))
+        {
+            return false;
+        }
+        else
+        {
+            _recipes.Remove(recipeId);
+            return true;
+        }
+    }
 
     public int AddIngredientsToShoppingList(int recipeId) =>
         throw new NotImplementedException("Part A: implement AddIngredientsToShoppingList.");
