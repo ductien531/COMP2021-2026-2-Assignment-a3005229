@@ -15,6 +15,7 @@ public sealed class RecipeManager : IRecipeManager
     private LinkedList<int> _cookingPlan = new LinkedList<int>();
 
     private List<string> _shoppingList = new List<string>();
+    private Stack<int> _removedRecipes = new Stack<int>();
     public RecipeManager(IEnumerable<Recipe> recipes)
     {
         // TODO Part A: validate recipes and build Dictionary<int, Recipe>.
@@ -52,7 +53,7 @@ public sealed class RecipeManager : IRecipeManager
     public int ShoppingItemCount => _shoppingList.Count;
     public int CookingPlanCount => _cookingPlan.Count;
     public int PendingInstructionCount => 0;
-    public int RemovedRecipeCount => 0;
+    public int RemovedRecipeCount => _removedRecipes.Count;
 
     public bool AddRecipe(Recipe recipe)
     {
@@ -69,7 +70,6 @@ public sealed class RecipeManager : IRecipeManager
         _recipes.Add(recipe.Id, recipe);
         return true;
     }
-
 
     public Recipe? FindRecipe(int recipeId)
     {
@@ -119,11 +119,29 @@ public sealed class RecipeManager : IRecipeManager
         _shoppingList.Clear();
     }
 
-    public bool AddRecipeToCookingPlan(int recipeId) =>
-        throw new NotImplementedException("Part A: implement AddRecipeToCookingPlan.");
+    public bool AddRecipeToCookingPlan(int recipeId)
+    {
+        if(!_recipes.ContainsKey(recipeId) || _cookingPlan.Contains(recipeId))
+        {
+            return false;
+        }
+        else
+        {
+            _cookingPlan.AddLast(recipeId);
+            return true;
+        }
+    }
 
-    public bool RemoveRecipeFromCookingPlan(int recipeId) =>
-        throw new NotImplementedException("Part A: implement RemoveRecipeFromCookingPlan.");
+    public bool RemoveRecipeFromCookingPlan(int recipeId)
+    {
+        bool flag = _cookingPlan.Remove(recipeId);
+        if (!flag)
+        {
+            return false;
+        }
+        _removedRecipes.Push(recipeId);
+        return true;
+    }
 
     public bool RestoreLastRemovedRecipe() =>
         throw new NotImplementedException("Part A: implement RestoreLastRemovedRecipe.");
