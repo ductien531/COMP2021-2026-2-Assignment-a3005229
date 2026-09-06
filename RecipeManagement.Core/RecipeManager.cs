@@ -45,17 +45,42 @@ public sealed class RecipeManager : IRecipeManager
         }
     }
 
-    public int RecipeCount => 0;
+    public int RecipeCount => _recipes.Count;
     public int ShoppingItemCount => 0;
     public int CookingPlanCount => 0;
     public int PendingInstructionCount => 0;
     public int RemovedRecipeCount => 0;
 
-    public bool AddRecipe(Recipe recipe) =>
-        throw new NotImplementedException("Part A: implement AddRecipe.");
+    public bool AddRecipe(Recipe recipe)
+    {
+        if (recipe is null)
+            {
+                throw new ArgumentNullException("Recipe entry must not be null");
+            }
 
-    public Recipe? FindRecipe(int recipeId) =>
-        throw new NotImplementedException("Part A: implement FindRecipe.");
+        if (recipe.Id <= 0 || string.IsNullOrWhiteSpace(recipe.Title) || _recipes.ContainsKey(recipe.Id))
+        {
+            return false;
+        }
+       
+        _recipes.Add(recipe.Id, recipe);
+        return true;
+    }
+       
+
+    public Recipe? FindRecipe(int recipeId)
+    {
+        if(_recipes.TryGetValue(recipeId, out Recipe? recipe))
+        {
+            return recipe;
+        }
+        else
+        {
+            return null;
+        }
+    }
+        
+    
 
     public bool RemoveRecipe(int recipeId) =>
         throw new NotImplementedException("Part A: implement RemoveRecipe.");
