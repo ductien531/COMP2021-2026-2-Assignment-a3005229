@@ -16,6 +16,8 @@ public sealed class RecipeManager : IRecipeManager
 
     private List<string> _shoppingList = new List<string>();
     private Stack<int> _removedRecipes = new Stack<int>();
+
+    private Queue<string> _instructionsQueue = new Queue<string>();
     public RecipeManager(IEnumerable<Recipe> recipes)
     {
         // TODO Part A: validate recipes and build Dictionary<int, Recipe>.
@@ -52,7 +54,7 @@ public sealed class RecipeManager : IRecipeManager
     public int RecipeCount => _recipes.Count;
     public int ShoppingItemCount => _shoppingList.Count;
     public int CookingPlanCount => _cookingPlan.Count;
-    public int PendingInstructionCount => 0;
+    public int PendingInstructionCount => _instructionsQueue.Count;
     public int RemovedRecipeCount => _removedRecipes.Count;
 
     public bool AddRecipe(Recipe recipe)
@@ -180,14 +182,47 @@ public sealed class RecipeManager : IRecipeManager
         return new List<int>(_cookingPlan);
     }
 
-    public bool StartCooking(int recipeId) =>
-        throw new NotImplementedException("Part A: implement StartCooking.");
+    public bool StartCooking(int recipeId)
+    {
+        if(!_recipes.TryGetValue(recipeId, out Recipe? recipe) || recipe.Instructions.Count == 0)
+        {
+            return false;
+        }
+        else
+        {
+            _instructionsQueue.Clear();
+            foreach(string value in recipe.Instructions)
+            {
+                _instructionsQueue.Enqueue(value);
+            }
+            
+            return true;
+        }
+    }
 
-    public string? PeekNextInstruction() =>
-        throw new NotImplementedException("Part A: implement PeekNextInstruction.");
+    public string? PeekNextInstruction()
+    {
+        if(_instructionsQueue.TryPeek(out string? instruction))
+        {
+            return instruction;
+        }
+        else
+        {
+            return null;
+        }
+    }
 
-    public string? CompleteNextInstruction() =>
-        throw new NotImplementedException("Part A: implement CompleteNextInstruction.");
+    public string? CompleteNextInstruction()
+    {
+        if(_instructionsQueue.TryDequeue(out string? instruction))
+        {
+            return instruction;
+        }
+        else
+        {
+            return null;
+        }
+    }
 
     public IReadOnlyList<Recipe> SearchByTitle(string searchText) =>
         throw new NotImplementedException("Part B: implement SearchByTitle.");
