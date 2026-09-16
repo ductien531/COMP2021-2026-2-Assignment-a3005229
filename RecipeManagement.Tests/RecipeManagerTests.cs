@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Data.Common;
 using RecipeManagement.Core;
 
 namespace RecipeManagement.Tests;
@@ -54,7 +55,32 @@ public sealed class RecipeManagerTests
             {
                 Id = 20,
                 Title = "Recipe B"
-            }
+            },
         });
+    }
+
+    [Fact]
+    public void ConstructorWithNullCollectionThrows()
+    {
+        Assert.Throws<ArgumentNullException>(() => new RecipeManager(null!));
+    }
+
+    [Fact]
+    public void ConstructorWithEmptyCollection()
+    {
+        Assert.Throws<ArgumentNullException>(() => new RecipeManager(new List<Recipe>(){null!})) ;
+    }
+
+    [Fact]
+    public void ConstructionWithRecipeIdLowerOrEqualZero()
+    {
+        Assert.Throws<ArgumentException>(() => new RecipeManager(new List<Recipe>()
+        {
+            new Recipe()
+            {
+                Id = 0,
+                Title = "Recipe F"
+            },
+        }));
     }
 }

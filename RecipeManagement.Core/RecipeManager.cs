@@ -199,7 +199,10 @@ public sealed class RecipeManager : IRecipeManager
             return true;
         }
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public string? PeekNextInstruction()
     {
         if(_instructionsQueue.TryPeek(out string? instruction))
@@ -212,6 +215,10 @@ public sealed class RecipeManager : IRecipeManager
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public string? CompleteNextInstruction()
     {
         if(_instructionsQueue.TryDequeue(out string? instruction))
