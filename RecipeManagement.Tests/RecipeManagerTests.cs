@@ -66,13 +66,13 @@ public sealed class RecipeManagerTests
     }
 
     [Fact]
-    public void ConstructorWithEmptyCollection()
+    public void ConstructorWithEmptyCollectionThrows()
     {
         Assert.Throws<ArgumentNullException>(() => new RecipeManager(new List<Recipe>(){null!})) ;
     }
 
     [Fact]
-    public void ConstructionWithRecipeIdLowerOrEqualZero()
+    public void ConstructionWithRecipeIdLowerOrEqualZeroThrows()
     {
         Assert.Throws<ArgumentException>(() => new RecipeManager(new List<Recipe>()
         {
@@ -81,6 +81,56 @@ public sealed class RecipeManagerTests
                 Id = 0,
                 Title = "Recipe F"
             },
+        }));
+    }
+
+    [Fact]
+    public void ConstructionWithNullOrWhiteSpaceRecipeTitleThrows()
+    {
+        Assert.Throws<ArgumentException>(() => new RecipeManager(new List<Recipe>()
+        {
+            new Recipe()
+            {
+                Id = 5,
+                Title = "   "
+            },
+        }));
+    }
+
+    [Fact]
+    public void ConstructionWithDuplicatedRecipeIdThrows()
+    {
+        Assert.Throws<ArgumentException>(() => new RecipeManager(new List<Recipe>()
+        {
+            new Recipe()
+            {
+                Id = 5,
+                Title = "Recipe H"
+            },
+
+            new Recipe()
+            {
+                Id = 5,
+                Title = "Recipe K"
+            }
+        }));
+    }
+
+    [Fact]
+    public void AddRecipeWithNullRecipe()
+    {
+        var manager = CreateManager();
+        Assert.Throws<ArgumentNullException>(() => manager.AddRecipe(null!));
+    }
+
+    [Fact]
+    public void AddRecipeWithInvalidRecipeIdOrTitle()
+    {
+        var manager = CreateManager();
+        Assert.False(manager.AddRecipe(new Recipe()
+        {
+            Id = 0,
+            Title = "Recipe C"
         }));
     }
 }
