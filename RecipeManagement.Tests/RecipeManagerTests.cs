@@ -124,13 +124,46 @@ public sealed class RecipeManagerTests
     }
 
     [Fact]
-    public void AddRecipeWithInvalidRecipeIdOrTitle()
+    public void AddRecipeWithRecipeIdLowerOrEqualZeroThrows()
     {
         var manager = CreateManager();
         Assert.False(manager.AddRecipe(new Recipe()
         {
             Id = 0,
             Title = "Recipe C"
+        }));
+    }
+
+    [Fact]
+    public void AddRecipeWithNullOrWhiteSpaceRecipeTitleThrows()
+    {
+        var manager = CreateManager();
+        Assert.False(manager.AddRecipe(new Recipe()
+        {
+            Id = 5,
+            Title = "  "
+        }));
+    }
+
+    [Fact]
+    public void AddRecipeWithDuplicatedRecipeIdThrows()
+    {
+        var manager = CreateManager();
+        Assert.False(manager.AddRecipe(new Recipe()
+        {
+            Id = 10,
+            Title = "Recipe O"
+        }));
+    }
+
+    [Fact]
+    public void AddRecipeWithValidValue()
+    {
+        var manager = CreateManager();
+        Assert.True(manager.AddRecipe(new Recipe()
+        {
+            Id = 6,
+            Title = "Recipe U"
         }));
     }
 }
