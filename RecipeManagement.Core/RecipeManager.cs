@@ -73,9 +73,9 @@ public sealed class RecipeManager : IRecipeManager
         return true;
     }
 
-    public Recipe? FindRecipe(int recipeId)
+    public Recipe FindRecipe(int recipeId)
     {
-        if (_recipes.TryGetValue(recipeId, out Recipe? recipe))
+        if (_recipes.TryGetValue(recipeId, out Recipe recipe))
         {
             return recipe;
         }
@@ -100,7 +100,7 @@ public sealed class RecipeManager : IRecipeManager
 
     public int AddIngredientsToShoppingList(int recipeId)
     {
-        if (!_recipes.TryGetValue(recipeId, out Recipe? recipe))
+        if (!_recipes.TryGetValue(recipeId, out Recipe recipe))
         {
             return 0;
         }
@@ -184,7 +184,7 @@ public sealed class RecipeManager : IRecipeManager
 
     public bool StartCooking(int recipeId)
     {
-        if(!_recipes.TryGetValue(recipeId, out Recipe? recipe) || recipe.Instructions.Count == 0)
+        if(!_recipes.TryGetValue(recipeId, out Recipe recipe) || recipe.Instructions.Count == 0)
         {
             return false;
         }
@@ -203,9 +203,9 @@ public sealed class RecipeManager : IRecipeManager
     /// 
     /// </summary>
     /// <returns></returns>
-    public string? PeekNextInstruction()
+    public string PeekNextInstruction()
     {
-        if(_instructionsQueue.TryPeek(out string? instruction))
+        if(_instructionsQueue.TryPeek(out string instruction))
         {
             return instruction;
         }
@@ -219,9 +219,9 @@ public sealed class RecipeManager : IRecipeManager
     /// 
     /// </summary>
     /// <returns></returns>
-    public string? CompleteNextInstruction()
+    public string CompleteNextInstruction()
     {
-        if(_instructionsQueue.TryDequeue(out string? instruction))
+        if(_instructionsQueue.TryDequeue(out string instruction))
         {
             return instruction;
         }

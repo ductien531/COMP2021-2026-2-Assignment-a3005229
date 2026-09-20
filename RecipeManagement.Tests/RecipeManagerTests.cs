@@ -199,5 +199,29 @@ public sealed class RecipeManagerTests
         Assert.False(manager.RemoveRecipe(10));
     }
 
+    [Fact]
+    public void AddIngredientsToShoppingListWithUnfoundedRecipeId()
+    {
+        var manager = CreateManager();
+        var addedIngredients = manager.AddIngredientsToShoppingList(4);
+        Assert.Equal(0, addedIngredients);
+    }
+
+    [Fact]
+    public void AddIngredientsToShoppingListWithFoundedRecipeId()
+    {
+        var manager = CreateManager();
+        var addedIngredients = manager.AddIngredientsToShoppingList(10);
+        Assert.Equal(1, addedIngredients);
+    }
     
+    [Fact]
+    public void GetShoppingList()
+    {
+        List<string> shoppingList = new();
+        var manager = CreateManager();
+        manager.AddIngredientsToShoppingList(10);
+        shoppingList.Add("1 apple");
+        Assert.Equal(shoppingList, manager.GetShoppingList());
+    }
 }
