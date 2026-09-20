@@ -166,4 +166,38 @@ public sealed class RecipeManagerTests
             Title = "Recipe U"
         }));
     }
+
+    [Fact]
+    public void FindRecipeWithValidValue()
+    {
+        var manager = CreateManager();
+        var foundRecipe = manager.FindRecipe(10);
+        Assert.Equal("Recipe A", foundRecipe!.Title);
+    }
+
+    [Fact]
+    public void FindRecipeWithInvalidRecipeId()
+    {
+        var manager = CreateManager();
+        var searchedRecipe = manager.FindRecipe(11);
+        Assert.Null(searchedRecipe);
+    }
+
+    [Fact]
+    public void RemoveRecipeWithRecipeId()
+    {
+        var manager = CreateManager();
+        var removeRecipe = manager.RemoveRecipe(10);
+        Assert.True(removeRecipe);
+    }
+
+    [Fact]
+    public void RemoveRecipeWithExistingRecipeIdInCookingPlan()
+    {
+        var manager = CreateManager();
+        manager.AddRecipeToCookingPlan(10);
+        Assert.False(manager.RemoveRecipe(10));
+    }
+
+    
 }

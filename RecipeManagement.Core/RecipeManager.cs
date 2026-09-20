@@ -100,7 +100,7 @@ public sealed class RecipeManager : IRecipeManager
 
     public int AddIngredientsToShoppingList(int recipeId)
     {
-        if (!_recipes.TryGetValue(recipeId, out Recipe recipe))
+        if (!_recipes.TryGetValue(recipeId, out Recipe? recipe))
         {
             return 0;
         }
