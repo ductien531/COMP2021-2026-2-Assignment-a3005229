@@ -68,7 +68,7 @@ public sealed class RecipeManagerTests
     [Fact]
     public void ConstructorWithEmptyCollectionThrows()
     {
-        Assert.Throws<ArgumentNullException>(() => new RecipeManager(new List<Recipe>(){null!})) ;
+        Assert.Throws<ArgumentNullException>(() => new RecipeManager(new List<Recipe>() { null! }));
     }
 
     [Fact]
@@ -214,7 +214,7 @@ public sealed class RecipeManagerTests
         var addedIngredients = manager.AddIngredientsToShoppingList(10);
         Assert.Equal(1, addedIngredients);
     }
-    
+
     [Fact]
     public void GetShoppingList()
     {
@@ -223,5 +223,14 @@ public sealed class RecipeManagerTests
         manager.AddIngredientsToShoppingList(10);
         shoppingList.Add("1 apple");
         Assert.Equal(shoppingList, manager.GetShoppingList());
+    }
+
+    [Fact]
+    public void ClearShoppingListWithTest()
+    {
+        var manager = CreateManager();
+        manager.AddIngredientsToShoppingList(10);
+        manager.ClearShoppingList();
+        Assert.Equal(0, manager.ShoppingItemCount);
     }
 }
