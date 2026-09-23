@@ -241,4 +241,13 @@ public sealed class RecipeManagerTests
         bool addedRecipe = manager.AddRecipeToCookingPlan(2);
         Assert.False(addedRecipe);
     }
+
+    [Fact]
+    public void RemoveRecipeFromCookingPlanWithInvalidRecipeId()
+    {
+        var manager = CreateManager();
+        var removedRecipe = manager.RemoveRecipeFromCookingPlan(12);
+        Assert.False(removedRecipe);
+        
+    }
 }
