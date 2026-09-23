@@ -259,4 +259,14 @@ public sealed class RecipeManagerTests
         Assert.False(poppedRecipe);
     }
 
+    [Fact]
+    public void RestoreLastRemovedRecipeWithInvalidValue()
+    {
+        var manager = CreateManager();
+        manager.AddRecipeToCookingPlan(10);
+        manager.RemoveRecipeFromCookingPlan(10);
+        manager.AddRecipeToCookingPlan(10);
+        var restoredRecipe = manager.RestoreLastRemovedRecipe();
+        Assert.False(restoredRecipe);
+    }
 }
