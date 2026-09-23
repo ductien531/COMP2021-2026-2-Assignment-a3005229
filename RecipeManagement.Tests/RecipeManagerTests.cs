@@ -287,4 +287,13 @@ public sealed class RecipeManagerTests
         var peekItem = manager.PeekLastRemovedRecipe();
         Assert.Null(peekItem);
     }
+
+    [Fact]
+    public void StartCookingWithEmptyRecipeId()
+    {
+        var manager = CreateManager();
+        manager.RemoveRecipe(10);
+        var cooking = manager.StartCooking(10);
+        Assert.False(cooking);
+    }
 }
