@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Data.Common;
+using Microsoft.VisualBasic;
 using RecipeManagement.Core;
 
 namespace RecipeManagement.Tests;
@@ -68,7 +69,7 @@ public sealed class RecipeManagerTests
     [Fact]
     public void ConstructorWithEmptyCollectionThrows()
     {
-        Assert.Throws<ArgumentNullException>(() => new RecipeManager(new List<Recipe>(){null!})) ;
+        Assert.Throws<ArgumentNullException>(() => new RecipeManager(new List<Recipe>() { null! }));
     }
 
     [Fact]
@@ -214,7 +215,7 @@ public sealed class RecipeManagerTests
         var addedIngredients = manager.AddIngredientsToShoppingList(10);
         Assert.Equal(1, addedIngredients);
     }
-    
+
     [Fact]
     public void GetShoppingList()
     {
@@ -248,6 +249,14 @@ public sealed class RecipeManagerTests
         var manager = CreateManager();
         var removedRecipe = manager.RemoveRecipeFromCookingPlan(12);
         Assert.False(removedRecipe);
-        
     }
+
+    [Fact]
+    public void RestoreLastRemovedRecipeWithEmptyRemovedRecipe()
+    {
+        var manager = CreateManager();
+        var poppedRecipe = manager.RestoreLastRemovedRecipe();
+        Assert.False(poppedRecipe);
+    }
+
 }
