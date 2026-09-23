@@ -279,4 +279,12 @@ public sealed class RecipeManagerTests
         manager.RemoveRecipe(10);
         Assert.False(manager.RestoreLastRemovedRecipe());
     }
+
+    [Fact]
+    public void PeekLastRemovedRecipeWithEmptyRecipeIdInRemovedRecipe()
+    {
+        var manager = CreateManager();
+        var peekItem = manager.PeekLastRemovedRecipe();
+        Assert.Null(peekItem);
+    }
 }
