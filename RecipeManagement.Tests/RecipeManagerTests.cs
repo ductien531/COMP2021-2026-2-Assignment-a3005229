@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Reflection;
 using Microsoft.VisualBasic;
 using RecipeManagement.Core;
 
@@ -295,5 +296,12 @@ public sealed class RecipeManagerTests
         manager.RemoveRecipe(10);
         var cooking = manager.StartCooking(10);
         Assert.False(cooking);
+    }
+
+    [Fact]
+    public void PeekNextInstructionWithEmptyInstruction()
+    {
+        var manager = CreateManager();
+        Assert.Null(manager.PeekNextInstruction());
     }
 }
