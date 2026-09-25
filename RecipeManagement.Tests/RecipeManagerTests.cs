@@ -304,4 +304,11 @@ public sealed class RecipeManagerTests
         var manager = CreateManager();
         Assert.Null(manager.PeekNextInstruction());
     }
+
+    [Fact]
+    public void CompleteNextInstruction()
+    {
+        var manager = CreateManager();
+        Assert.Null(manager.CompleteNextInstruction());
+    }
 }
