@@ -311,4 +311,13 @@ public sealed class RecipeManagerTests
         var manager = CreateManager();
         Assert.Null(manager.CompleteNextInstruction());
     }
+
+    [Fact]
+    public void CollectionsWithEmpty()
+    {
+        var manager = CreateManager();
+        Assert.Equal(manager.CookingPlanCount, 0);
+        Assert.Equal(manager.PendingInstructionCount, 0);
+        Assert.Equal(manager.RemovedRecipeCount, 0);
+    }
 }
