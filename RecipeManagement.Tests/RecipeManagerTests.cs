@@ -245,6 +245,15 @@ public sealed class RecipeManagerTests
     }
 
     [Fact]
+    public void AddRecipeToCookingPlanWithDuplicatedRecipeIdIsRejected()
+    {
+        var manager = CreateManager();
+        Assert.True(manager.AddRecipeToCookingPlan(10));
+        Assert.False(manager.AddRecipeToCookingPlan(10));
+        Assert.Equal(1, manager.CookingPlanCount);
+    }
+
+    [Fact]
     public void RemoveRecipeFromCookingPlanWithInvalidRecipeId()
     {
         var manager = CreateManager();
