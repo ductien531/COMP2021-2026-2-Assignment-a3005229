@@ -138,7 +138,7 @@ public sealed class RecipeManager : IRecipeManager
 
     public bool AddRecipeToCookingPlan(int recipeId)
     {
-        if(!_recipes.ContainsKey(recipeId) || _cookingPlan.Contains(recipeId))
+        if (!_recipes.ContainsKey(recipeId) || _cookingPlan.Contains(recipeId))
         {
             return false;
         }
@@ -168,13 +168,13 @@ public sealed class RecipeManager : IRecipeManager
     /// </summary>
     public bool RestoreLastRemovedRecipe()
     {
-        if(!_removedRecipes.TryPop(out int recipeID)) // It will return false if the recipe Id doesn't exist in _removedRecipes
+        if (!_removedRecipes.TryPop(out int recipeID)) // It will return false if the recipe Id doesn't exist in _removedRecipes
         {
             return false;
         }
         else
         {
-            if(!_recipes.ContainsKey(recipeID) || _cookingPlan.Contains(recipeID))
+            if (!_recipes.ContainsKey(recipeID) || _cookingPlan.Contains(recipeID))
             {
                 return false;
             }
@@ -188,7 +188,7 @@ public sealed class RecipeManager : IRecipeManager
 
     public int? PeekLastRemovedRecipe()
     {
-        if(_removedRecipes.TryPeek(out int recipeId))
+        if (_removedRecipes.TryPeek(out int recipeId))
         {
             return recipeId;
         }
@@ -208,18 +208,18 @@ public sealed class RecipeManager : IRecipeManager
     /// </summary>
     public bool StartCooking(int recipeId)
     {
-        if(!_recipes.TryGetValue(recipeId, out Recipe? recipe) || recipe.Instructions.Count == 0)
+        if (!_recipes.TryGetValue(recipeId, out Recipe? recipe) || recipe.Instructions.Count == 0)
         {
             return false;
         }
         else
         {
             _instructionsQueue.Clear();
-            foreach(string value in recipe.Instructions)
+            foreach (string value in recipe.Instructions)
             {
                 _instructionsQueue.Enqueue(value);
             }
-            
+
             return true;
         }
     }
@@ -229,7 +229,7 @@ public sealed class RecipeManager : IRecipeManager
     /// <returns></returns>
     public string PeekNextInstruction()
     {
-        if(_instructionsQueue.TryPeek(out string? instruction))
+        if (_instructionsQueue.TryPeek(out string? instruction))
         {
             return instruction;
         }
@@ -244,7 +244,7 @@ public sealed class RecipeManager : IRecipeManager
     /// </summary>
     public string CompleteNextInstruction()
     {
-        if(_instructionsQueue.TryDequeue(out string? instruction))
+        if (_instructionsQueue.TryDequeue(out string? instruction))
         {
             return instruction;
         }
