@@ -61,6 +61,8 @@ public sealed class RecipeManagerTests
         });
     }
 
+    // These methods will check that the constructor builds a valid recipe catalogue and it will reject 
+    // invalid recipe value
     [Fact]
     public void ConstructorWithNullCollectionThrows()
     {
