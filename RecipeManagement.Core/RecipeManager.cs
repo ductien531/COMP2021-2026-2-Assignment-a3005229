@@ -105,8 +105,7 @@ public sealed class RecipeManager : IRecipeManager
         }
         else
         {
-            _recipes.Remove(recipeId);
-            return true;
+            return _recipes.Remove(recipeId);
         }
     }
 
