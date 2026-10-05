@@ -271,7 +271,7 @@ public sealed class RecipeManager : IRecipeManager
         {
             return _recipes.Values.ToList();
         }
-        return _recipes.Values.Where(recipe => recipe.Ingredients.Any(ingredient => ingredient.Contains(inputSearchText))).ToList();
+        return _recipes.Values.Where(recipe => recipe.Ingredients.Any(ingredient => ingredient.ToLower().Contains(inputSearchText))).ToList();
     }
 
     public IReadOnlyList<Recipe> GetHighestProteinRecipes(int count) =>
