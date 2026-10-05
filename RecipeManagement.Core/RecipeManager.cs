@@ -19,6 +19,8 @@ public sealed class RecipeManager : IRecipeManager
 
     private Queue<string> _instructionsQueue = new Queue<string>();
 
+    private HashSet<int> _savedRecipes = new HashSet<int>();
+
     /// <summary>
     /// This method will build the recipe catalogue from the supplied recipes
     /// </summary>
@@ -287,8 +289,18 @@ public sealed class RecipeManager : IRecipeManager
         }
     }
 
-    public bool AddSavedRecipe(int recipeId) =>
-        throw new NotImplementedException("Part B: implement AddSavedRecipe.");
+    public bool AddSavedRecipe(int recipeId)
+    {
+        if(!_recipes.ContainsKey(recipeId))
+        {
+            return false;
+        }
+        else
+        {
+            return _savedRecipes.Add(recipeId);
+        }
+    }
+        
 
     public bool RemoveSavedRecipe(int recipeId) =>
         throw new NotImplementedException("Part B: implement RemoveSavedRecipe.");
