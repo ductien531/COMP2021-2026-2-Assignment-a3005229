@@ -254,8 +254,11 @@ public sealed class RecipeManager : IRecipeManager
         }
     }
 
-    public IReadOnlyList<Recipe> SearchByTitle(string searchText) =>
-        throw new NotImplementedException("Part B: implement SearchByTitle.");
+    public IReadOnlyList<Recipe> SearchByTitle(string searchText)
+    {
+        string inputSearchText = searchText.ToLower();
+        return _recipes.Values.Where(recipe => recipe.Title.ToLower().Contains(inputSearchText)).ToList();
+    }
 
     public IReadOnlyList<Recipe> SearchByIngredient(string searchText) =>
         throw new NotImplementedException("Part B: implement SearchByIngredient.");
