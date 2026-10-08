@@ -433,10 +433,25 @@ public sealed class RecipeManagerTests
     [Fact]
     public void RemoveSavedRecipeWithValidRecipeId()
     {
-        var manager = CreateManager();
+        var manager = CreateManagerB();
         var removedRecipe = manager.RemoveSavedRecipe(3);
         Assert.False(removedRecipe);
     }
 
+    [Fact]
+    public void IsRecipeSaved()
+    {
+        var manager = CreateManagerB();
+        var addedRecipe = manager.AddSavedRecipe(3);
+        var checkRecipeSaved = manager.IsRecipeSaved(3);
+        Assert.True(checkRecipeSaved);
+    }
+
+    [Fact]
+    public void GetSavedRecipes()
+    {
+        var manager = CreateManagerB();
+        Assert.Empty(manager.GetSavedRecipes());
+    }
 }
 
