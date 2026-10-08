@@ -380,5 +380,21 @@ public sealed class RecipeManagerTests
         var searchText = manager.SearchByTitle("T");
         Assert.Equal(3, searchText.Count);
     }
+
+    [Fact]
+    public void SearchByIngredientWithNullOrWhiteSpaceInputText()
+    {
+        var manager = CreateManagerB();
+        var emptySearchText = manager.SearchByIngredient(" ");
+        Assert.Equal(3, emptySearchText.Count);
+    }
+
+    [Fact]
+    public void SearchByIngredientWithValidInputText()
+    {
+        var manager = CreateManagerB();
+        var searchText = manager.SearchByIngredient("s");
+        Assert.Equal(2, searchText.Count);
+    }
 }
 
