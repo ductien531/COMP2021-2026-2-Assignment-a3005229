@@ -430,5 +430,13 @@ public sealed class RecipeManagerTests
         Assert.True(addedRecipe);
     }
 
+    [Fact]
+    public void RemoveSavedRecipeWithValidRecipeId()
+    {
+        var manager = CreateManager();
+        var removedRecipe = manager.RemoveSavedRecipe(3);
+        Assert.False(removedRecipe);
+    }
+
 }
 
