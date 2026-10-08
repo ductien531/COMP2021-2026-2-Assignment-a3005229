@@ -285,7 +285,7 @@ public sealed class RecipeManager : IRecipeManager
         }
         else
         {
-            return _recipes.Values.Where(recipe => recipe.Nutrition?.ProteinG is not null).OrderByDescending(recipe => recipe.Nutrition!.ProteinG!).Take(count).ToList();        
+            return _recipes.Values.OrderByDescending(recipe => recipe.Nutrition!.ProteinG!).Take(count).ToList();        
         }
     }
 

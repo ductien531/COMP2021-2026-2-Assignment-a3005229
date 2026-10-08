@@ -410,8 +410,25 @@ public sealed class RecipeManagerTests
     public void GetHighestProteinRecipesWithValidCount()
     {
         var manager = CreateManagerB();
-        var count = manager.GetHighestProteinRecipes(3).Count;
-        Assert.Equal(3, count);
+        var countHighestRecipes = manager.GetHighestProteinRecipes(10);
+        Assert.Equal(3, countHighestRecipes.Count);
     }
+
+    [Fact]
+    public void AddSavedRecipeWithInvalidRecipeId()
+    {
+        var manager = CreateManagerB();
+        var addedRecipe = manager.AddSavedRecipe(5);
+        Assert.False(addedRecipe);
+    }
+
+    [Fact]
+    public void AddSavedRecipeWithValidRecipeId()
+    {
+        var manager = CreateManagerB();
+        var addedRecipe = manager.AddSavedRecipe(3);
+        Assert.True(addedRecipe);
+    }
+
 }
 
