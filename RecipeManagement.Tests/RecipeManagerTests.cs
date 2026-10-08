@@ -88,7 +88,8 @@ public sealed class RecipeManagerTests
                 Id = 3,
                 Title = "Fruit Bowl",
                 Ingredients = new List<string> { "1 apple" },
-                Instructions = new List<string>()
+                Instructions = new List<string>(),
+                Nutrition = new NutritionInfo { ProteinG = 36 }
             }
         });
     }
@@ -395,6 +396,22 @@ public sealed class RecipeManagerTests
         var manager = CreateManagerB();
         var searchText = manager.SearchByIngredient("s");
         Assert.Equal(2, searchText.Count);
+    }
+
+    [Fact]
+    public void GetHighestProteinRecipesWithInvalidCount()
+    {
+        var manager = CreateManagerB();
+        var count = manager.GetHighestProteinRecipes(0).Count;
+        Assert.Equal(0, count);
+    }
+
+    [Fact]
+    public void GetHighestProteinRecipesWithValidCount()
+    {
+        var manager = CreateManagerB();
+        var count = manager.GetHighestProteinRecipes(3).Count;
+        Assert.Equal(3, count);
     }
 }
 
