@@ -51,13 +51,45 @@ public sealed class RecipeManagerTests
                 Id = 10,
                 Title = "Recipe A",
                 Ingredients = new() { "1 apple" },
-                Instructions = new() { "First step", "Second step" }
+                Instructions = new() { "First step", "Second step" },
+                Nutrition = new NutritionInfo { ProteinG = 11.3 }
             },
             new Recipe
             {
                 Id = 20,
-                Title = "Recipe B"
+                Title = "Recipe B",
+                Nutrition = new NutritionInfo { ProteinG = 3.0 }
             },
+        });
+    }
+
+    private static RecipeManager CreateManagerB()
+    {   
+        return new RecipeManager(new[]
+        {
+            new Recipe
+            {
+                Id = 1,
+                Title = "Tomato Soup",
+                Ingredients = new List<string> { "2 tomatoes", "1 onion" },
+                Instructions = new List<string> { "Chop", "Simmer", "Serve" },
+                Nutrition = new NutritionInfo { ProteinG = 5.0 }
+            },
+            new Recipe
+            {
+                Id = 2,
+                Title = "Cheese Toastie",
+                Ingredients = new List<string> { "2 slices bread" },
+                Instructions = new List<string> { "Grill" },
+                Nutrition = new NutritionInfo { ProteinG = 18.5 }
+            },
+            new Recipe
+            {
+                Id = 3,
+                Title = "Fruit Bowl",
+                Ingredients = new List<string> { "1 apple" },
+                Instructions = new List<string>()
+            }
         });
     }
 
@@ -331,4 +363,22 @@ public sealed class RecipeManagerTests
         Assert.Equal(0, manager.PendingInstructionCount);
         Assert.Equal(0, manager.RemovedRecipeCount);
     }
+
+    // Part B Tests
+    [Fact]
+    public void SearchByTitleWithNullOrWhitespaceInputText()
+    {
+        var manager = CreateManagerB();
+        var emptySearchText = manager.SearchByTitle(" ");
+        Assert.Equal(3, emptySearchText.Count);
+    }
+
+    [Fact]
+    public void SearchByTitleWithValidInputText()
+    {
+        var manager = CreateManagerB();
+        var searchText = manager.SearchByTitle("T");
+        Assert.Equal(3, searchText.Count);
+    }
 }
+

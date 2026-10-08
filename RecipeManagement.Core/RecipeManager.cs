@@ -10,7 +10,6 @@ namespace RecipeManagement.Core;
 /// </summary>
 public sealed class RecipeManager : IRecipeManager
 {
-    // TODO Part A: add your private collection fields here.
     private Dictionary<int, Recipe> _recipes = new Dictionary<int, Recipe>();
     private LinkedList<int> _cookingPlan = new LinkedList<int>();
 
@@ -256,6 +255,7 @@ public sealed class RecipeManager : IRecipeManager
         }
     }
 
+    // Part B 
     public IReadOnlyList<Recipe> SearchByTitle(string searchText)
     {
         string inputSearchText = searchText.ToLower();
