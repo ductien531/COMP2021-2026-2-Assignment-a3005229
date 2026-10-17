@@ -453,5 +453,56 @@ public sealed class RecipeManagerTests
         var manager = CreateManagerB();
         Assert.Empty(manager.GetSavedRecipes());
     }
+
+    // This part is Integrated Workflow
+    [Fact]
+    public void TestIntegratedWorkflow()
+    {
+        var manager = CreateManagerB();
+        manager.AddRecipe(new Recipe
+        {
+            Id = 10,
+            Title = "Recipe A",
+            Ingredients = new() { "1 apple" },
+            Instructions = new() { "First step", "Second step" },
+            Nutrition = new NutritionInfo { ProteinG = 11.3 } 
+        });
+
+        Assert.Equal(4, manager.RecipeCount);
+
+        Assert.Equal(1, manager.AddIngredientsToShoppingList(3));
+
+        Assert.True(manager.AddRecipeToCookingPlan(3));
+
+        Assert.True(manager.RemoveRecipeFromCookingPlan(3));
+
+        Assert.Equal(3, manager.PeekLastRemovedRecipe());
+
+        Assert.True(manager.RestoreLastRemovedRecipe());
+
+        Assert.Equal(new [] {3}, manager.GetCookingPlan());
+
+        Assert.True(manager.StartCooking(2));
+
+        Assert.Equal("Grill", manager.PeekNextInstruction());
+
+        Assert.Equal("Grill", manager.CompleteNextInstruction());
+
+        Assert.Equal(3, manager.SearchByTitle("T").Count);
+
+        Assert.Equal(1, manager.SearchByIngredient("T").Count);
+
+        Assert.Equal(2, manager.GetHighestProteinRecipes(2).Count);
+       
+        Assert.True(manager.AddSavedRecipe(2));
+
+        Assert.True(manager.IsRecipeSaved(2));
+
+        Assert.Equal(new [] {2}, manager.GetSavedRecipes());
+
+        Assert.True(manager.RemoveSavedRecipe(2));
+    }
 }
+
+    
 
