@@ -4,7 +4,7 @@ Complete this document for **Part B**.
 
 ## 1. Saved recipe collection
 
-Name the C# collection you selected for the saved/favourite feature and explain why it suits add, remove, duplicate prevention and membership checks.
+Name the C# collection you selected for the saved/favorite feature and explain why it suits add, remove, duplicate prevention and membership checks.
 
 I chose HashSet for the saved feature. The assignment requires the _savedRecipe contains no duplicated recipe Id and have no order, so this data structure matches these requirements.
 

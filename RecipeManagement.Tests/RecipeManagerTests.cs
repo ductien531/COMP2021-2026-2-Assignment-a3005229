@@ -485,11 +485,9 @@ public sealed class RecipeManagerTests
         Assert.True(manager.StartCooking(2));
 
         Assert.Equal("Grill", manager.PeekNextInstruction());
-
         Assert.Equal("Grill", manager.CompleteNextInstruction());
 
         Assert.Equal(3, manager.SearchByTitle("T").Count);
-
         Assert.Equal(1, manager.SearchByIngredient("T").Count);
 
         Assert.Equal(2, manager.GetHighestProteinRecipes(2).Count);

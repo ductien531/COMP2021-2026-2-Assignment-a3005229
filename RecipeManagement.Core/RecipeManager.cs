@@ -256,6 +256,9 @@ public sealed class RecipeManager : IRecipeManager
     }
 
     // Part B 
+    /// <summary>
+    /// This method will find recipes by title, it is non-sensitive. Returns all recipes if the searchText is blank
+    /// </summary>
     public IReadOnlyList<Recipe> SearchByTitle(string searchText)
     {
         string inputSearchText = searchText.ToLower();
@@ -266,6 +269,9 @@ public sealed class RecipeManager : IRecipeManager
         return _recipes.Values.Where(recipe => recipe.Title.ToLower().Contains(inputSearchText)).ToList();
     }
 
+    /// <summary>
+    /// This method will find recipes by ingredient, it is non-sensitive. Returns all recipes if the searchText is blank
+    /// </summary>
     public IReadOnlyList<Recipe> SearchByIngredient(string searchText)
     {
         string inputSearchText = searchText.ToLower();
