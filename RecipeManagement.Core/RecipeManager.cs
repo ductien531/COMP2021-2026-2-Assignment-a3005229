@@ -285,19 +285,19 @@ public sealed class RecipeManager : IRecipeManager
     public IReadOnlyList<Recipe> GetHighestProteinRecipes(int count)
     {
         // 10 10 5 4 3 2 1
-        if(count <= 0)
+        if (count <= 0)
         {
             return new List<Recipe>();
         }
         else
         {
-            return _recipes.Values.OrderByDescending(recipe => recipe.Nutrition!.ProteinG!).Take(count).ToList();        
+            return _recipes.Values.OrderByDescending(recipe => recipe.Nutrition!.ProteinG!).Take(count).ToList();
         }
     }
 
     public bool AddSavedRecipe(int recipeId)
     {
-        if(!_recipes.ContainsKey(recipeId))
+        if (!_recipes.ContainsKey(recipeId))
         {
             return false;
         }
@@ -306,13 +306,13 @@ public sealed class RecipeManager : IRecipeManager
             return _savedRecipes.Add(recipeId);
         }
     }
-        
+
 
     public bool RemoveSavedRecipe(int recipeId)
     {
         return _savedRecipes.Remove(recipeId);
     }
-        
+
 
     public bool IsRecipeSaved(int recipeId)
     {
